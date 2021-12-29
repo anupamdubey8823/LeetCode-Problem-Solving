@@ -19,20 +19,23 @@ public:
 class Solution {
 public:
     Node* connect(Node* root) {
-        Node *prev = root, *current;
-        while (prev) {
-            current = prev;
-            while (current && current->left) {
-//              Linking left node of every subtree with right node
-                current->left->next = current->right;
-                if (current->next) {
-//                  Linking right node of every subtree to left node of adjacent subtree
-                    current->right->next = current->next->left;
+        Node *curr = root;
+        Node *dummy = new Node(0, NULL, NULL, NULL);
+        while (curr) {
+            for (Node *prev = dummy; curr != NULL; curr = curr->next) {
+                if (curr->left) {
+                    prev->next = curr->left;
+                    prev = prev->next;
                 }
-                current = current->next;
+                if (curr->right) {
+                    prev->next = curr->right;
+                    prev = prev->next;
+                }
             }
-            prev = prev->left;
+            curr = dummy->next;
+            dummy->next = NULL; // Deleting the first node with 0 value 
         }
+        delete dummy;
         return root;
     }
 };
