@@ -13,7 +13,7 @@ public:
                 colxor = colxor ^ (matrix[col][row] ^ (col+1));
                 colsum += matrix[col][row];
             }
-            if (rowxor || colxor || colsum != requiredSum || rowsum != requiredSum)
+            if (rowxor || colxor)
                 return false;
         }
         return true;
