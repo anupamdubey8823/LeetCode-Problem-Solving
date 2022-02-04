@@ -8,6 +8,7 @@ public:
             if (mp.count(target-nums[i])) {
                 targetPair.emplace_back(i);
                 targetPair.emplace_back(mp[target-nums[i]]);
+                break;
             }
             else
                 mp[nums[i]] = i;
