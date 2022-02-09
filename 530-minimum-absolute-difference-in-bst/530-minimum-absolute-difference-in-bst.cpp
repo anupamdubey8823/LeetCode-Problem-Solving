@@ -21,10 +21,10 @@ public:
         vector<int> nodes;
         fillNodes(root, nodes);
         int len = nodes.size(), minDiff = INT_MAX;
-        for (int i = 0; i < len; i++) {
-            for (int j = i+1; j < len; j++) {
-                minDiff = min(minDiff, abs(nodes[i] - nodes[j]));
-            }
+        for (int i = 1; i < len; i++) {
+            // for (int j = i+1; j < len; j++) {
+                minDiff = min(minDiff, abs(nodes[i] - nodes[i-1]));
+            // }
         }
         return minDiff;
     }
