@@ -22,9 +22,8 @@ public:
         fillNodes(root, nodes);
         int len = nodes.size(), minDiff = INT_MAX;
         for (int i = 1; i < len; i++) {
-            // for (int j = i+1; j < len; j++) {
-                minDiff = min(minDiff, abs(nodes[i] - nodes[i-1]));
-            // }
+//             Since, the array is already sorted, therefore we only need to check diff between 2 consecutive elements and find min difference.
+            minDiff = min(minDiff, abs(nodes[i] - nodes[i-1]));
         }
         return minDiff;
     }
