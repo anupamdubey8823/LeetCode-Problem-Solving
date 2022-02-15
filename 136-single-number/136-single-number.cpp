@@ -1,7 +1,7 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        set<int> unique;
+        unordered_set<int> unique;
         for (auto &num: nums) {
             if (unique.count(num))
                 unique.erase(unique.find(num));
