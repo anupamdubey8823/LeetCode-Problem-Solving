@@ -9,18 +9,21 @@
  * };
  */
 class Solution {
-public:
-    ListNode* swapNodes(ListNode* head, int k) {
-        vector<int> linkedArr;
+    void fillArray(vector<int> &linkedArr, ListNode *head) {
         ListNode *temp = head;
         while (temp) {
             linkedArr.emplace_back(temp->val);
             temp = temp->next;
         }
+    }
+public:
+    ListNode* swapNodes(ListNode* head, int k) {
+        vector<int> linkedArr;
+        fillArray(linkedArr, head);
+        
         int len = linkedArr.size(), arrIndexEquivalent = k - 1;
         swap(linkedArr[arrIndexEquivalent], linkedArr[len-1-arrIndexEquivalent]);
-        ListNode *newList = new ListNode(0);
-        temp = newList;
+        ListNode *newList = new ListNode(0), *temp = newList;
         
         for (auto &elem: linkedArr) {
             ListNode *newNode = new ListNode(elem);
