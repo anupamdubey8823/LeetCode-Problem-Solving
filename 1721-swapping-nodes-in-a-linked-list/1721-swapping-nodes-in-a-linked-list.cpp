@@ -9,34 +9,21 @@
  * };
  */
 class Solution {
-    void fillArray(vector<int> &linkedArr, ListNode *head) {
-        ListNode *temp = head;
-        while (temp) {
-            linkedArr.emplace_back(temp->val);
-            temp = temp->next;
-        }
-    }
-    void createList(vector<int> &linkedArr, ListNode *newList) {
-        ListNode *temp = newList;
-        for (auto &elem: linkedArr) {
-            ListNode *newNode = new ListNode(elem);
-            temp->next = newNode;
-            temp = temp->next;
-        }
-    }
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        vector<int> linkedArr;
-        fillArray(linkedArr, head);
-        
-        int lastArrIndex = linkedArr.size() - 1, kthFromStart = k - 1;
-        int kthFromEnd = lastArrIndex-kthFromStart;
-        
-        swap(linkedArr[kthFromStart], linkedArr[kthFromEnd]);
-        
-        ListNode *newList = new ListNode(0);
-        createList(linkedArr, newList);
-        
-        return newList->next;        
+        ListNode *ptr1 = head, *ptr2 = head, *kthElem;
+        while (--k) 
+            ptr1 = ptr1->next;
+//         Storing record of kth element
+        kthElem = ptr1;
+//         This ensures we get the len-k the element,i.e. kth elem from the last
+        ptr1 = ptr1->next;
+//         Iterating for getting the 2nd pointer, i.e. kth element from the last
+        while (ptr1) {
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        swap(kthElem->val, ptr2->val);
+        return head;
     }
 };
