@@ -16,20 +16,27 @@ class Solution {
             temp = temp->next;
         }
     }
-public:
-    ListNode* swapNodes(ListNode* head, int k) {
-        vector<int> linkedArr;
-        fillArray(linkedArr, head);
-        
-        int lastArrIndex = linkedArr.size() - 1, kthArrIndex = k - 1;
-        swap(linkedArr[kthArrIndex], linkedArr[lastArrIndex-kthArrIndex]);
-        ListNode *newList = new ListNode(0), *temp = newList;
-        
+    void createList(vector<int> &linkedArr, ListNode *newList) {
+        ListNode *temp = newList;
         for (auto &elem: linkedArr) {
             ListNode *newNode = new ListNode(elem);
             temp->next = newNode;
             temp = temp->next;
         }
+    }
+public:
+    ListNode* swapNodes(ListNode* head, int k) {
+        vector<int> linkedArr;
+        fillArray(linkedArr, head);
+        
+        int lastArrIndex = linkedArr.size() - 1, kthFromStart = k - 1;
+        int kthFromEnd = lastArrIndex-kthFromStart;
+        
+        swap(linkedArr[kthFromStart], linkedArr[kthFromEnd]);
+        
+        ListNode *newList = new ListNode(0);
+        createList(linkedArr, newList);
+        
         return newList->next;        
     }
 };
