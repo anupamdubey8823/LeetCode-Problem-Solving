@@ -21,8 +21,8 @@ public:
         vector<int> linkedArr;
         fillArray(linkedArr, head);
         
-        int len = linkedArr.size(), arrIndexEquivalent = k - 1;
-        swap(linkedArr[arrIndexEquivalent], linkedArr[len-1-arrIndexEquivalent]);
+        int lastArrIndex = linkedArr.size() - 1, kthArrIndex = k - 1;
+        swap(linkedArr[kthArrIndex], linkedArr[lastArrIndex-kthArrIndex]);
         ListNode *newList = new ListNode(0), *temp = newList;
         
         for (auto &elem: linkedArr) {
