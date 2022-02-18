@@ -5,6 +5,7 @@ public:
         int len = nums.size(), canKeep = len - k;
         // afterRemoval.push_back(nums[0]);
         for (int i = 0; i < len; i++) {
+//             Keep popping the elems until ascending order is established again or k removals get exhausted
             while (afterRemoval.size() > 0 && k > 0 && nums[i] < afterRemoval.back()) {
                 afterRemoval.pop_back();
                 k--;
@@ -15,7 +16,7 @@ public:
 //         Hence, it makes sense to trim out the last digits of afterRemoval since we are only allowed to keep len() - k digits. And in the loop all the digits are processed as there is no constraint added for stopping after k removals. 
 //         As per last line, we keep on adding digits.
 //         So next line is for triming those last extra digits.
-        afterRemoval.erase(canKeep, string::npos);
+        afterRemoval.erase(afterRemoval.begin() + canKeep, afterRemoval.end());
     
         int removalIndex = 0, postRemovalSize = afterRemoval.size();
 //         Triming leading zeros
