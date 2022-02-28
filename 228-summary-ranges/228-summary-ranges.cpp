@@ -1,12 +1,10 @@
 class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
-        int len = nums.size();
-        if (len == 0)
-            return {};
+        int len = nums.size(), start, end;
         string range = "";
         vector<string> summary;
-        int start, end;
+
         for (int i = 0; i < len; i++) {
             start = end = i;
             while (end < len-1 && nums[end] + 1 == nums[end+1])
