@@ -1,14 +1,13 @@
 class Solution {
-    int climbUtil(int n, vector<int> &steps) {
-        if (n == 0 || n == 1)
-            return 1;
-        if (steps[n] != -1)
-            return steps[n];
-        return steps[n] = climbUtil(n-1, steps) + climbUtil(n-2, steps);
-    }
 public:
     int climbStairs(int n) {
-        vector<int> steps(n+1, -1);
-        return climbUtil(n, steps);
+        vector<int> stairs(n+1, 0);
+        for (int i = 0; i <= n; i++) {
+            if (i == 0 || i == 1)
+                stairs[i] = 1;
+            else
+                stairs[i] = stairs[i-1] + stairs[i-2];
+        }
+        return stairs[n];
     }
 };
