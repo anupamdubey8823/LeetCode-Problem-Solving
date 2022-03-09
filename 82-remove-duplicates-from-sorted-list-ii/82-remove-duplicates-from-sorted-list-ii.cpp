@@ -13,22 +13,22 @@ public:
     ListNode* deleteDuplicates(ListNode* head) {
         if (!head)
             return head;
-        ListNode *newList = new ListNode(0, head);
+        ListNode *dummyNode = new ListNode(0, head);
         
-        ListNode *temp = head, *prev = newList;
+        ListNode *iterator = head, *prev = dummyNode;
         
-        while (temp && temp->next) {
-            if (temp->val == temp->next->val) {
-                while (temp->next && temp->val == temp->next->val)
-                    temp = temp->next;
-                prev->next = temp->next;
-                temp = prev->next;
+        while (iterator && iterator->next) {
+            if (iterator->val == iterator->next->val) {
+                while (iterator->next && iterator->val == iterator->next->val)
+                    iterator = iterator->next;
+                prev->next = iterator->next;
+                iterator = prev->next;
             }
             else {
-                prev = temp;
-                temp = temp->next;
+                prev = iterator;
+                iterator = iterator->next;
             }
         }
-        return newList->next;
+        return dummyNode->next;
     }
 };
