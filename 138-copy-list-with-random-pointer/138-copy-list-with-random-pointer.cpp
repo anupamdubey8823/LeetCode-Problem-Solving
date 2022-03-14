@@ -17,27 +17,24 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        Node *newHead, *l1, *l2;
-    if (head == NULL) return NULL;
-
-    for (l1 = head; l1 != NULL; l1 = l1->next) {
-        l2 = new Node(l1->val);
-        l2->next = l1->random;
-        l1->random = l2;
-    }
-    
-    newHead = head->random;
-    for (l1 = head; l1 != NULL; l1 = l1->next) {
-        l2 = l1->random;
-        l2->random = l2->next ? l2->next->random : NULL;
-    }
-    
-    for (l1 = head; l1 != NULL; l1 = l1->next) {
-        l2 = l1->random;
-        l1->random = l2->next;
-        l2->next = l1->next ? l1->next->random : NULL;
-    }
-
-    return newHead;
+        map<Node*, Node*> cloneMap;
+        Node *temp = head;
+        Node *cloneList = new Node(0), *clonePtr = cloneList;
+        while (temp) {
+            Node* newNode = new Node(temp->val);
+            cloneList->next = newNode;
+            cloneList = cloneList->next;
+            cloneMap[temp] = newNode;
+            temp = temp->next;
+        }
+        
+        temp = head;
+        while (temp) {
+            // if (temp->next) cloneMap[temp]->next = cloneMap[temp->next];
+            if (temp->random) cloneMap[temp]->random = cloneMap[temp->random];
+            temp = temp->next;
+        }
+        
+        return clonePtr->next;        
     }
 };
