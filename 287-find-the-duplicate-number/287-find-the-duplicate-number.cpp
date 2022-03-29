@@ -1,16 +1,31 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        set<int> findDup;
-        int duplicate;
-        for (auto &num:nums) {
-            if (!findDup.count(num))
-                findDup.insert(num);
-            else {
-                duplicate = num;
-                break;
-            }
+        int slow = nums[0], fast = nums[nums[0]];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
         }
-        return duplicate;
+//         fast = 4, slow = 3;
+//         slow = 2, fast = 4;
+//         slow = 4, fast = 4;
+        
+//         slow = 3, fast = 4;
+//         slow = 4, fast = 3;
+//         slow = 2, fast = 2;
+        
+        fast = 0;
+        while (fast != slow) {
+            fast = nums[fast];
+            slow = nums[slow];
+        }
+//         fast = 0, slow = 4;
+//         fast = 1, slow = 2;
+//         fast = 3, slow = 4;
+//         fast = 2, slow = 2;
+        
+//         fast = 0, slow = 2;
+//         fast = 3, slow = 3;
+        return slow;
     }
 };
