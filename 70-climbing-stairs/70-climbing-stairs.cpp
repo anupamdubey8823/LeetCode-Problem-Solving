@@ -1,13 +1,11 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int first = 1, second = 1, currentStep = second;
+        vector<int> stairs(n+1, 0);
+        stairs[0] = 1, stairs[1] = 1;
         for (int i = 2; i <= n; i++) {
-            currentStep = first + second;
-            int temp = second;
-            second = currentStep;
-            first = temp;
+            stairs[i] = stairs[i-1] + stairs[i-2];
         }
-        return second;
+        return stairs[n];
     }
 };
