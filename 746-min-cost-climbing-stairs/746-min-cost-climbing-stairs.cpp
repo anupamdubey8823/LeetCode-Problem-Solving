@@ -9,7 +9,7 @@ class Solution {
 public:
     int minCostClimbingStairs(vector<int>& cost) {
         int len = cost.size();
-        vector<int> minCost(len+1, -1);
+        vector<int> minCost(len, -1);
         return min(minCostUtil(cost, len-1, minCost), minCostUtil(cost, len-2, minCost));
     }
 };
