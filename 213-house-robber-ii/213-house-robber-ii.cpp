@@ -1,15 +1,15 @@
 class Solution {
-    int robUtil(vector<int> &nums, int robIndex, int endIndex, vector<vector<int>> &maxRobDP, int n) {
+    int robUtil(vector<int> &nums, int robIndex, int endIndex, vector<vector<int>> &maxRobDP, int firstOrLast) {
         if (robIndex > endIndex)
             return 0;
         
         if (robIndex == endIndex)
             return nums[robIndex];
         
-        if (maxRobDP[n][robIndex] != -1)
-            return maxRobDP[n][robIndex];
+        if (maxRobDP[firstOrLast][robIndex] != -1)
+            return maxRobDP[firstOrLast][robIndex];
         
-        return maxRobDP[n][robIndex] = max(nums[robIndex] + robUtil(nums, robIndex+2, endIndex, maxRobDP, n), robUtil(nums, robIndex+1, endIndex, maxRobDP, n));
+        return maxRobDP[firstOrLast][robIndex] = max(nums[robIndex] + robUtil(nums, robIndex+2, endIndex, maxRobDP, firstOrLast), robUtil(nums, robIndex+1, endIndex, maxRobDP, firstOrLast));
     }
 public:
     int rob(vector<int>& nums) {
