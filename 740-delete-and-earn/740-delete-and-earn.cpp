@@ -1,19 +1,24 @@
 class Solution {
+    int maxPoints(vector<int> &nums, int index, vector<int> &count, vector<int> &maxPointsDP) {
+        if (index >= count.size())
+            return 0;
+        
+        if (maxPointsDP[index] != -1)
+            return maxPointsDP[index];
+        
+        return maxPointsDP[index] = max(maxPoints(nums, index+2, count, maxPointsDP) + count[index], maxPoints(nums, index+1, count, maxPointsDP));
+    }
 public:
     int deleteAndEarn(vector<int>& nums) {
-        int n = 10001;
-        vector<int> count(n);
-//         Segregating which elements in the array can give max how much points when all duplicates clubbed together
-//         Eg - [1, 2, 2, 2, 3, 3]. Here, 1 can give 1 point, 2 can give 6 points, 3 can give 6 points
-        for (int &num: nums)
-            count[num] += num;
-        vector<int> maxPoints(n);
-        for (int i = 0; i < n; i++) {
-            if (i == 0 || i == 1)
-                maxPoints[i] = count[i];
-            else
-                maxPoints[i] = max(count[i] + maxPoints[i-2], maxPoints[i-1]);
+        int maxNum = *max_element(nums.begin(), nums.end());
+        int maxIndex = maxNum + 1;
+        vector<int> count(maxIndex, 0);
+        for (auto &num: nums)
+            count[num]++;
+        for (int i = 0; i < maxIndex; i++) {
+            count[i] = count[i] * i;
         }
-        return maxPoints[n-1];
+        vector<int> maxPointsDP(maxIndex, -1);
+        return maxPoints(nums, 0, count, maxPointsDP);
     }
 };
