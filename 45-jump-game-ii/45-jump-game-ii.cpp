@@ -1,19 +1,15 @@
 class Solution {
-    int jumpUtil(int index, vector<int> &nums, vector<int> &jumpsDP) {
-        if (index >= nums.size()-1)
-            return 0;
-        if (jumpsDP[index] != INT_MAX-1)
-            return jumpsDP[index];
-        int minJumps = INT_MAX-1; // Safety Check for avoiding overflow if due to any condition(eg. nums=[0]) INT_MAX+1 had to be returned;
-        for (int i = 1; i <= nums[index]; i++) {
-            minJumps = min(jumpUtil(index+i, nums, jumpsDP), minJumps);
-        }
-        return jumpsDP[index] = minJumps + 1;
-    }
 public:
     int jump(vector<int>& nums) {
-        int len = nums.size();
-        vector<int> jumpsDP(len, INT_MAX-1);
-        return jumpUtil(0, nums, jumpsDP);
+        int farthest = 0, left = 0, right = 0, minJumps = 0, len = nums.size();
+        while (right < len - 1) {
+            for (int i = left; i <= right; i++) {
+                farthest = max(farthest, i + nums[i]);
+            }
+            left = right+1;
+            right = farthest;
+            minJumps++;
+        }
+        return minJumps;
     }
 };
